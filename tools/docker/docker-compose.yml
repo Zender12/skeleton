@@ -1,0 +1,46 @@
+version: '3'
+services:
+    vanga_web:
+        container_name: vanga-web
+        hostname: "vanga.local"
+        build: ./build/web
+        volumes:
+            - ../../:/var/www/sources
+        depends_on:
+            - vanga_database
+        networks:
+            vanga_net:
+                ipv4_address: 192.168.0.10
+
+    vanga_database:
+        hostname: "vanga-db.local"
+        container_name: vanga-database
+        build: ./build/db
+        env_file:
+            - env/mysql.env
+        tty: true
+        networks:
+            vanga_net:
+                ipv4_address: 192.168.0.20
+
+    vanga_phpmyadmin:
+        hostname: "vanga-pma.local"
+        container_name: vanga-phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        env_file:
+            - env/pma.env
+        restart: always
+        depends_on:
+            - vanga_database
+        networks:
+            vanga_net:
+                ipv4_address: 192.168.0.30
+
+networks:
+    vanga_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+            - subnet: 192.168.0.0/24
+
