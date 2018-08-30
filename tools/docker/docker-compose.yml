@@ -5,7 +5,7 @@ services:
         hostname: "vanga.local"
         build: ./build/web
         volumes:
-            - ../../:/var/www/sources
+            - ../../:/var/www/sources/vanga_backend
         depends_on:
             - vanga_database
         networks:
