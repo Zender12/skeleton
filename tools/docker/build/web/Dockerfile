@@ -7,7 +7,7 @@ RUN a2enmod rewrite &&\
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN apt-get update && apt-get -y install mc sshpass ssh build-essential git mysql-utilities mysql-client openssh-client zlib1g-dev libcurl4-openssl-dev curl gnupg
+RUN apt-get update && apt-get -y install mc sshpass ssh build-essential nano git mysql-utilities mysql-client openssh-client zlib1g-dev libcurl4-openssl-dev curl gnupg
 RUN docker-php-ext-install pdo pdo_mysql curl mbstring zip bcmath
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
